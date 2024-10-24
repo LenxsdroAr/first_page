@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en, es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chessquestions</title>
+    <link rel="stylesheet" href="css_style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Repaso de Teoría del Ajedrez</h1>
+    <div id="card" class="card">Haz clic en "Mostrar Respuesta" para empezar</div>
+    <button id="show-answer-btn">Mostrar Respuesta</button>
+    <div id="answer" class="answer"></div>
+    <button id="next-btn" style="display: none;">Siguiente Pregunta</button>
+</div>
+
+<script>
+    const questionsAndAnswers = [
+        { question: "¿Qué es el control del centro en ajedrez?", answer: "Controlar el centro implica ocupar o influir las casillas centrales (e4, d4, e5, d5) con piezas o peones." },
+        { question: "¿Qué piezas son más efectivas para controlar el centro del tablero?", answer: "Los peones, los caballos y las piezas de largo alcance como los alfiles y las damas." },
+        { question: "¿Qué es el enroque y cómo se realiza?", answer: "Es una jugada especial que mueve el rey dos casillas hacia una torre y la torre salta sobre el rey." },
+        { question: "¿Cuáles son los dos tipos de enroque?", answer: "Enroque corto (lado del rey) y enroque largo (lado de la dama)." },
+        { question: "¿Cuál es el valor relativo de una torre en comparación con un caballo?", answer: "La torre vale aproximadamente 5 puntos, mientras que el caballo vale 3 puntos." },
+        { question: "¿Cómo se hace una jugada de jaque mate con una dama y un rey contra un rey solo?", answer: "Se usa la dama para limitar el movimiento del rey enemigo y se acorrala el rey con la ayuda de tu propio rey." },
+        { question: "¿Qué es una apertura en ajedrez?", answer: "La apertura es la fase inicial del juego en la que se desarrollan las piezas y se busca controlar el centro." },
+        { question: "¿Cuál es el objetivo principal durante la apertura?", answer: "Desarrollar las piezas, controlar el centro y preparar el rey para enrocar." },
+        { question: "¿Por qué es importante el desarrollo de las piezas al inicio del juego?", answer: "Para activar tus piezas rápidamente, colocándolas en posiciones activas y prepararlas para atacar o defender." },
+        { question: "¿Qué es el gambito en ajedrez?", answer: "Un gambito es una apertura en la que se sacrifica material, generalmente un peón, para obtener una ventaja posicional o de desarrollo." },
+        { question: "¿Qué es el gambito de dama?", answer: "Es una apertura en la que las blancas ofrecen sacrificar un peón en d4 para ganar el control del centro." },
+        { question: "¿Cómo se defiende el gambito de rey?", answer: "Las negras aceptan o declinan el sacrificio del peón de f4 y desarrollan sus piezas para luchar por el centro." },
+        { question: "¿Cuál es el concepto de 'oposición' en ajedrez?", answer: "Es una táctica en la que los reyes se enfrentan directamente y el que no tiene el turno se ve forzado a moverse, cediendo terreno." },
+        { question: "¿Qué es un peón pasado?", answer: "Un peón que no puede ser detenido por los peones rivales en su camino hacia la promoción." },
+        { question: "¿Qué es la estructura de peones?", answer: "Es la disposición de los peones en el tablero y afecta las fortalezas y debilidades de la posición." },
+        { question: "¿Cómo afecta una estructura de peones débil al juego?", answer: "Puede crear agujeros, peones aislados o doblados, lo que dificulta la defensa y el avance." },
+        { question: "¿Qué es un alfil 'malo' y por qué se considera así?", answer: "Un alfil se considera 'malo' si está restringido por sus propios peones, especialmente si están en las mismas casillas de su color." },
+        { question: "¿Qué es un 'rey activo' en el final del juego?", answer: "Un rey activo es aquel que participa activamente en el final, ayudando a sus piezas o peones a avanzar." },
+        { question: "¿Qué es un ataque doble en ajedrez?", answer: "Es una táctica en la que una pieza ataca dos piezas enemigas al mismo tiempo, obligando al oponente a perder material." },
+        { question: "¿Qué es un sacrificio en ajedrez?", answer: "Es la entrega intencional de material, como una pieza o un peón, para obtener una ventaja posicional o táctica." },
+        { question: "¿Qué significa tener una 'ventaja posicional'?", answer: "Es cuando tus piezas están mejor colocadas que las de tu oponente, lo que te permite maniobrar con más facilidad." }
+    ];
+
+    let currentIndex = 0;
+
+    // Muestra la pregunta actual
+    function showQuestion() {
+        const card = document.getElementById('card');
+        card.classList.remove('visible');
+        card.classList.add('hidden');
+        setTimeout(() => {
+            card.innerText = questionsAndAnswers[currentIndex].question;
+            card.classList.remove('hidden');
+            card.classList.add('visible');
+            document.getElementById('answer').innerText = "";
+            document.getElementById('show-answer-btn').style.display = 'block';
+            document.getElementById('next-btn').style.display = 'none';
+        }, 500);
+    }
+
+    // Muestra la respuesta
+    function showAnswer() {
+        document.getElementById('answer').innerText = questionsAndAnswers[currentIndex].answer;
+        document.getElementById('show-answer-btn').style.display = 'none';
+        document.getElementById('next-btn').style.display = 'block';
+    }
+
+    // Avanza a la siguiente pregunta
+    function nextQuestion() {
+        if (currentIndex < questionsAndAnswers.length - 1) {
+            currentIndex++;
+            showQuestion();
+        } else {
+            document.getElementById('card').innerText = "¡Has completado todas las preguntas!";
+            document.getElementById('show-answer-btn').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('answer').innerText = "";
+        }
+    }
+
+    // Inicializar
+    document.getElementById('show-answer-btn').addEventListener('click', showAnswer);
+    document.getElementById('next-btn').addEventListener('click', nextQuestion);
+
+    // Mostrar la primera pregunta
+    showQuestion();
+</script>
+
+</body>
+</html>
